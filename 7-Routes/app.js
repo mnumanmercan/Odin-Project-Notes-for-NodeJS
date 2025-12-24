@@ -1,28 +1,21 @@
 import express from 'express';
+import authorRouter from './authorRouter.js';
+import bookRouter from './bookRouter.js';
+import indexRouter from './indexRouter.js';
 
 const app = express();
 const PORT = 8080;
 
-/**
- * GET /odin/messages will have this log
- * { username: "odin" }
- * GET /theodinproject79687378/messages would instead log
- * { username: "theodinproject79687378" }
- */
-app.get("/:username/messages", (req, res) => {
-  console.log(req.params);
-  res.end();
+app.use('/', indexRouter);
+app.use('/books', bookRouter);
+app.use('/authors', authorRouter);
+
+
+app.listen(PORT, (error) => {
+    if (error) {
+        throw error;
+    }
+
+    console.log(`Library API is running on http://localhost:${PORT}`);
 });
 
-/**
- * GET /odin/messages/79687378 will have this log
- * { username: "odin", messageId: "79687378" }
- */
-app.get("/:username/messages/:messageId", (req, res) => {
-  console.log(req.params);
-  res.end();
-});
-
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
