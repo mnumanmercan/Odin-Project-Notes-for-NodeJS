@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yakında Hizmetinizdeyiz - Bahmer Mercedes Servis</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .container-fluid {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .background-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            background-image: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 35px,
+                rgba(255, 255, 255, .1) 35px,
+                rgba(255, 255, 255, .1) 70px
+            );
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .logo-container {
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .mercedes-star {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .star-circle {
+            width: 100px;
+            height: 100px;
+            border: 3px solid #c0c0c0;
+            border-radius: 50%;
+            position: relative;
+            animation: rotate 20s linear infinite;
+        }
+
+        .star-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+        }
+
+        .star-line {
+            position: absolute;
+            width: 2px;
+            height: 35px;
+            background: #c0c0c0;
+            left: 50%;
+            transform-origin: bottom center;
+        }
+
+        .star-line:nth-child(1) {
+            transform: translateX(-50%) rotate(0deg);
+        }
+
+        .star-line:nth-child(2) {
+            transform: translateX(-50%) rotate(120deg);
+        }
+
+        .star-line:nth-child(3) {
+            transform: translateX(-50%) rotate(240deg);
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            animation: fadeInUp 1s ease-out 0.3s backwards;
+        }
+
+        .subtitle {
+            color: #c0c0c0;
+            font-size: 1.2rem;
+            margin-bottom: 50px;
+            animation: fadeInUp 1s ease-out 0.6s backwards;
+        }
+
+        .services-icons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out 0.9s backwards;
+        }
+
+        .service-item {
+            text-align: center;
+            color: #c0c0c0;
+        }
+
+        .service-item i {
+            font-size: 2.5rem;
+            color: #c0c0c0;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .service-item:hover i {
+            color: #ffffff;
+            transform: translateY(-5px);
+        }
+
+        .service-item span {
+            display: block;
+            font-size: 0.9rem;
+        }
+
+        .contact-info {
+            color: #999;
+            font-size: 0.95rem;
+            animation: fadeInUp 1s ease-out 1.2s backwards;
+        }
+
+        .contact-info a {
+            color: #c0c0c0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .services-icons {
+                gap: 30px;
+            }
+            
+            .service-item i {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-pattern"></div>
+    
+    <div class="container-fluid">
+        <div class="content-wrapper">
+            <div class="logo-container">
+                <div class="mercedes-star">
+                    <div class="star-circle">
+                        <div class="star-inner">
+                            <div class="star-line"></div>
+                            <div class="star-line"></div>
+                            <div class="star-line"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h1> <strong style="color: #999;">BAHMER CAR SERVİCE</strong> <br>
+                SİTEMİZ YAKINDA HİZMETİNİZDE</h1>
+            <p class="subtitle">Mercedes-Benz Yetkili Servisi</p>
+
+            <div class="services-icons">
+                <div class="service-item">
+                    <i class="fas fa-tools"></i>
+                    <span>Bakım</span>
+                </div>
+                <div class="service-item">
+                    <i class="fas fa-wrench"></i>
+                    <span>Onarım</span>
+                </div>
+                <div class="service-item">
+                    <i class="fas fa-car"></i>
+                    <span>Yedek Parça</span>
+                </div>
+                <div class="service-item">
+                    <i class="fas fa-oil-can"></i>
+                    <span>Yağ Değişimi</span>
+                </div>
+            </div>
+
+            <div class="contact-info">
+                <p>Sorularınız için:</p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:info@example.com">abdulselim5461@gmail.com</a></p>
+                <p><i class="fas fa-phone"></i> <a href="tel:+905XXXXXXXXX">+90 533 066 58 54</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
