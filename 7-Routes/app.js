@@ -1,7 +1,7 @@
 import express from 'express';
-import authorRouter from './authorRouter.js';
-import bookRouter from './bookRouter.js';
-import indexRouter from './indexRouter.js';
+import authorRouter from './route/authorRouter.js';
+import bookRouter from './route/bookRouter.js';
+import indexRouter from './route/indexRouter.js';
 
 const app = express();
 const PORT = 8080;
