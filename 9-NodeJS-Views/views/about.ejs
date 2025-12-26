@@ -1,0 +1,12 @@
+<!-- index.ejs -->
+<html>
+  <head>
+    <title><%= message %></title>
+  </head>
+  <body>
+    <h1><%= message %></h1>
+    <%- include('navbar', {links: links}) %>
+
+    <%- include('footer', {footerMessage: footerMessage}) %>
+  </body>
+</html>

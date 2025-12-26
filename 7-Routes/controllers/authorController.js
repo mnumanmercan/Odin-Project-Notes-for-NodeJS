@@ -1,4 +1,5 @@
 import db from '../db.js';
+import CustomNotFound from '../errors/CustomNotFound.js';
 
 export const getAuthorById = async (req, res) => {
     const { authorId } = req.params;
@@ -7,7 +8,7 @@ export const getAuthorById = async (req, res) => {
         const author = await db.getAuthorById(Number(authorId));
 
         if (!author) {
-            res.status(404).sendFile('./404.html', { root: '.' });
+            throw new CustomNotFound(`Author with ID ${authorId} not found.`);
             return;
         }
 
