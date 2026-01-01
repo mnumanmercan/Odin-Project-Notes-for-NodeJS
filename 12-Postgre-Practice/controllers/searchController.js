@@ -1,6 +1,4 @@
 const db = require("../db/queries.js");
-const pool = require("../db/pool.js");
-
 
 async function searchUserName(req, res) {
     try {
