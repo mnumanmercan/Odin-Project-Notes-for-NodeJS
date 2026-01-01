@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 // Sample API endpoint
 app.use('/', indexRouter);
 app.use('/', newRouter);
-app.use('/', searchRouter);
+app.use('/users', searchRouter);
 
 // Start the server
 app.listen(PORT, () => {

@@ -1,11 +1,17 @@
 const db = require("../db/queries.js");
+const pool = require("../db/pool.js");
+
 
 async function searchUserName(req, res) {
-    const { search } = req.query;
-    const usernames = await db.getAllUsernames();
-    const filteredUsernames = usernames.filter(user => user.username.includes(search));
-    console.log("Search Result: ", filteredUsernames);
-    res.send("Search Result: " + filteredUsernames.map(user => user.username).join(", "));
+    try {
+        const search = req.query.search || '';
+        const result = await db.searchUserName(search);
+
+        res.json(result);
+        console.log('RESULTS:', result);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 }
 
 module.exports = { searchUserName };
