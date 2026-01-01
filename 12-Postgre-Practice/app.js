@@ -4,6 +4,7 @@ const { fileURLToPath } = require('url');
 const indexRouter = require('./routes/indexRouter.js');
 const newRouter = require('./routes/newRouter.js');
 const searchRouter = require('./routes/searchRouter.js');
+const deleteUserRouter = require('./routes/deleteUserRouter.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/', indexRouter);
 app.use('/', newRouter);
 app.use('/users', searchRouter);
+app.use('/delete-users', deleteUserRouter)
 
 // Start the server
 app.listen(PORT, () => {
