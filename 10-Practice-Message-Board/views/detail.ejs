@@ -1,3 +1,4 @@
 <h1><%= title %></h1>
-<p><strong>User:</strong> <%= message.user %></p>
-<p><strong>Message:</strong> <%= message.text %></p>
+<p><strong>User:</strong> <%= message.username %></p>
+<p><strong>Message:</strong> <%= message.message %></p>
+<a href="/delete-user/<%= message.id %>">Delete User</a>

@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import indexRouter from './routes/indexRouter.js';
 import newRouter from './routes/newRouter.js';
 import userRoute from './routes/userRoute.js';
+import deleteRoute from './routes/deleteRoute.js';
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/', indexRouter);
 app.use('/', newRouter);
 app.use('/messages', userRoute)
+app.use('/delete-user', deleteRoute)
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
