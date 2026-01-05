@@ -9,6 +9,8 @@
 <body>
     <h1>Inventory Application</h1>
 
+    <a href="/new"><button type="button" class="btn btn-primary">Add New Book</button></a>
+
     <table class="table">
         <thead>
             <tr>
@@ -23,10 +25,13 @@
             <% books.forEach(book => { %>
                 <tr>
                     <th scope="row"><%= book.id %></th>
-                    <td><a href="/books/<%= book.id %>"><%= book.title %></a></td>
+                    <td><%= book.title %></td>
                     <td><%= book.stock_quantity %></td>
                     <td><%= book.category %></td>
                     <td><%= book.authors %></td>
+                    <td><a href="/books/<%= book.id %>"><button type="button" class="btn btn-info">Info</button></a>
+                        <a href="/delete-book/<%= book.id %>"><button type="button" class="btn btn-danger">Delete</button></a>
+                    </td>
                 </tr>
             <% }) %>
         </tbody>

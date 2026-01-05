@@ -3,6 +3,9 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import indexRouter from './routes/indexRouter.js';
+import detailsRouter from './routes/detailsRoute.js';
+import newBookRouter from './routes/newBookRoute.js';
+import deleteRouter from './routes/deleteRoute.js';
 
 // .env dosyasını yükle
 dotenv.config();
@@ -22,7 +25,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // - - Routes - -
 app.use('/', indexRouter);
-
+app.use('/books', detailsRouter);
+app.use('/new', newBookRouter)
+app.use('/delete-book', deleteRouter);
 //
 
 
