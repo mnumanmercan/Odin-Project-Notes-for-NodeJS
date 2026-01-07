@@ -1,4 +1,4 @@
-import { getBooks } from "../db/queries.js";
+import { getBooks } from "../../db/queries.js";
 
 export async function getTargetBook(req, res) {
     const bookId = Number(req.params.id);

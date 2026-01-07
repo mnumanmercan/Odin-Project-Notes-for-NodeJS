@@ -2,10 +2,14 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
+import bookRouter from './routes/bookRoutes/booksRoute.js';
+import detailsRouter from './routes/bookRoutes/detailsRoute.js';
+import newBookRouter from './routes/bookRoutes/newBookRoute.js';
+import { deleteRouter, deleteAuthorRouter, deleteCategoryRouter} from './routes/bookRoutes/deleteRoute.js';
 import indexRouter from './routes/indexRouter.js';
-import detailsRouter from './routes/detailsRoute.js';
-import newBookRouter from './routes/newBookRoute.js';
-import deleteRouter from './routes/deleteRoute.js';
+import categoriesRouter from './routes/categoryRoutes/categoriesRoute.js';
+import authorsRouter from './routes/authorRoutes/authorRoute.js';
+import newAuthorRouter from './routes/authorRoutes/newAuthorRoute.js';
 
 // .env dosyasını yükle
 dotenv.config();
@@ -25,9 +29,17 @@ app.use(express.urlencoded({ extended: true }));
 
 // - - Routes - -
 app.use('/', indexRouter);
-app.use('/books', detailsRouter);
+app.use('/books', bookRouter);
+app.use('/book', detailsRouter);
 app.use('/new', newBookRouter)
 app.use('/delete-book', deleteRouter);
+app.use('/categories', categoriesRouter);
+app.use('/authors', authorsRouter);
+app.use('/new-author', newAuthorRouter);
+app.use('/delete-author', deleteAuthorRouter);
+app.use('/delete-category', deleteCategoryRouter);
+
+
 //
 
 

@@ -1,4 +1,4 @@
-import { addNewBook, getCategories, getAuthors } from "../db/queries.js";
+import { addNewBook, getCategories, getAuthors } from "../../db/queries.js";
 
 export async function newBookGet(req, res) {
     const categories = await getCategories();

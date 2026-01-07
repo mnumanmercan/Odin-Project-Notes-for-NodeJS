@@ -1,4 +1,4 @@
-import { getTargetBook } from "../controllers/detailsController.js";
+import { getTargetBook } from "../../controllers/bookControllers/detailsController.js";
 import { Router } from "express";
 
 const detailsRouter = Router();

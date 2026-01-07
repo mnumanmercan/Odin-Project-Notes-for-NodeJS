@@ -59,3 +59,43 @@ export async function updateBookInfo(bookId, title, stockQuantity, categoryId) {
 
     return rows[0];
 }
+
+export async function addNewCategory(name) {
+    const { rows } = await pool.query(
+        `INSERT INTO categories (name) VALUES ($1) RETURNING *`,
+        [name]
+    );
+
+    return rows[0];
+}
+
+export async function deleteCategoryById(categoryId) {
+    const { rows } = await pool.query("SELECT COUNT(*) as count FROM books WHERE category_id = $1", [categoryId]);
+
+    if (parseInt(rows[0].count) > 0) {
+        throw new Error("Cannot delete category with associated books.");
+    }
+
+    await pool.query("DELETE FROM categories WHERE id = $1", [categoryId]);
+}
+
+export async function addNewAuthor(name) {
+    const { rows } = await pool.query(
+        `INSERT INTO authors (name) VALUES ($1) RETURNING *`,
+        [name]
+    );
+
+    return rows[0];
+}
+
+export async function deleteAuthorById(id) {
+    const { rows } = await pool.query("SELECT COUNT(*) as count FROM books WHERE author_id = $1", [id]);
+
+    if (parseInt(rows[0].count) > 0) {
+        throw new Error("Cannot delete author with associated books.");
+
+        
+    }
+
+    await pool.query("DELETE FROM authors WHERE id = $1", [id]);
+}

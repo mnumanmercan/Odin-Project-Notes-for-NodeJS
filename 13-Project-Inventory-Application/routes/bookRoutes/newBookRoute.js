@@ -1,4 +1,4 @@
-import { newBookPost, newBookGet } from "../controllers/newBookController.js";
+import { newBookPost, newBookGet } from "../../controllers/bookControllers/newBookController.js";
 import { Router } from "express";
 const newBookRouter = Router();
 
