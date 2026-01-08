@@ -3,15 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <title>Inventory Application</title>
 </head>
-<body>
-    <h1>Welcome to the <% title %></h1>
+<body class="bg-light">
+    <div class="container">
+        <div class="row justify-content-center align-items-center min-vh-100">
+            <div class="col-lg-8 col-md-10">
+                <div class="card shadow-lg border-0 rounded-4">
+                    <div class="card-header bg-primary text-white text-center py-5 rounded-top-4">
+                        <i class="fas fa-warehouse fs-1 mb-3"></i>
+                        <h1 class="h2 mb-2 fw-bold">Hoş Geldiniz</h1>
+                        <p class="mb-0 fs-5"><%= title %></p>
+                    </div>
+                    
+                    <div class="card-body p-5">
+                        <p class="text-center text-muted mb-4 fs-5">Yönetmek istediğiniz kategoriyi seçin:</p>
+                        
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <a href="/books" class="text-decoration-none">
+                                    <div class="card border-0 shadow-sm h-100 rounded-3 hover-card">
+                                        <div class="card-body text-center p-4">
+                                            <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                                                <i class="fas fa-book text-primary fs-1"></i>
+                                            </div>
+                                            <h5 class="card-title fw-bold mb-2">Kitaplar</h5>
+                                            <p class="card-text text-muted small">Kitap listesini görüntüle ve yönet</p>
+                                            <span class="btn btn-primary btn-sm mt-2 w-100">
+                                                Görüntüle <i class="fas fa-arrow-right ms-2"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
 
-    <div>
-        <a href="/books"><button type="button" class="btn btn-outline-primary">View Books</button></a>
-        <a href="/categories"><button type="button" class="btn btn-outline-secondary">View Categories</button></a>
-        <a href="/authors"><button type="button" class="btn btn-outline-success">View Authors</button></a>
+                            <div class="col-md-4">
+                                <a href="/categories" class="text-decoration-none">
+                                    <div class="card border-0 shadow-sm h-100 rounded-3 hover-card">
+                                        <div class="card-body text-center p-4">
+                                            <div class="bg-secondary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                                                <i class="fas fa-folder text-secondary fs-1"></i>
+                                            </div>
+                                            <h5 class="card-title fw-bold mb-2">Kategoriler</h5>
+                                            <p class="card-text text-muted small">Kategori listesini görüntüle ve yönet</p>
+                                            <span class="btn btn-secondary btn-sm mt-2 w-100">
+                                                Görüntüle <i class="fas fa-arrow-right ms-2"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col-md-4">
+                                <a href="/authors" class="text-decoration-none">
+                                    <div class="card border-0 shadow-sm h-100 rounded-3 hover-card">
+                                        <div class="card-body text-center p-4">
+                                            <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                                                <i class="fas fa-user-edit text-success fs-1"></i>
+                                            </div>
+                                            <h5 class="card-title fw-bold mb-2">Yazarlar</h5>
+                                            <p class="card-text text-muted small">Yazar listesini görüntüle ve yönet</p>
+                                            <span class="btn btn-success btn-sm mt-2 w-100">
+                                                Görüntüle <i class="fas fa-arrow-right ms-2"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-5">
+                            <p class="text-muted small mb-0">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Envanter yönetim sisteminize hoş geldiniz
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,42 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory Application</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Inventory Application</h1>
 
-    <a href="/new"><button type="button" class="btn btn-primary">Add New Book</button></a>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card shadow-lg border-0 rounded-4">
+                    <div class="card-header bg-primary text-white py-4 rounded-top-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-book-open fs-3 me-2"></i>
+                                <span class="h2 mb-0 fw-bold">Kitap Listesi</span>
+                            </div>
+                            <a href="/new" class="btn btn-light btn-lg rounded-3">
+                                <i class="fas fa-plus-circle me-2"></i>
+                                Yeni Kitap Ekle
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col" class="py-3 px-4">
+                                            <i class="fas fa-hashtag me-2 text-primary"></i>ID
+                                        </th>
+                                        <th scope="col" class="py-3">
+                                            <i class="fas fa-book me-2 text-primary"></i>Kitap Adı
+                                        </th>
+                                        <th scope="col" class="py-3">
+                                            <i class="fas fa-boxes me-2 text-primary"></i>Stok
+                                        </th>
+                                        <th scope="col" class="py-3">
+                                            <i class="fas fa-folder me-2 text-primary"></i>Kategori
+                                        </th>
+                                        <th scope="col" class="py-3">
+                                            <i class="fas fa-user-edit me-2 text-primary"></i>Yazarlar
+                                        </th>
+                                        <th scope="col" class="py-3 text-center">
+                                            <i class="fas fa-cog me-2 text-primary"></i>İşlemler
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% books.forEach(book=> { %>
+                                        <tr class="align-middle">
+                                            <th scope="row" class="px-4 fw-bold text-primary">
+                                                <%= book.id %>
+                                            </th>
+                                            <td class="fw-semibold">
+                                                <%= book.title %>
+                                            </td>
+                                            <td>
+                                                <span class="badge <%= book.stock_quantity > 10 ? 'bg-success' : book.stock_quantity > 5 ? 'bg-warning text-dark' : 'bg-danger' %> px-3 py-2">
+                                                    <%= book.stock_quantity %> adet
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-secondary bg-opacity-25 text-dark px-3 py-2">
+                                                    <%= book.category %>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <%= book.authors %>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="btn-group" role="group">
+                                                    <a href="/books/<%= book.id %>" class="btn btn-info btn-sm rounded-start-3">
+                                                        <i class="fas fa-info-circle me-1"></i>Detay
+                                                    </a>
+                                                    <a href="/delete-book/<%= book.id %>" class="btn btn-danger btn-sm rounded-end-3">
+                                                        <i class="fas fa-trash-alt me-1"></i>Sil
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <% if (books.length === 0) { %>
+                            <div class="text-center py-5">
+                                <i class="fas fa-inbox fs-1 text-muted mb-3"></i>
+                                <p class="text-muted fs-5">Henüz kitap eklenmemiş</p>
+                                <a href="/new" class="btn btn-primary">
+                                    <i class="fas fa-plus me-2"></i>İlk Kitabı Ekle
+                                </a>
+                            </div>
+                        <% } %>
+                    </div>
+                    
+                    <div class="card-footer bg-white border-0 py-3 rounded-bottom-4">
+                        <div class="d-flex justify-content-between align-items-center px-3">
+                            <span class="text-muted">
+                                <i class="fas fa-book me-2"></i>
+                                Toplam <strong><%= books.length %></strong> kitap
+                            </span>
+                            <a href="/" class="btn btn-secondary rounded-3">
+                                <i class="fas fa-home me-2"></i>Ana Sayfaya Dön
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Title</th>
-                <th scope="col">Stock Quantity</th>
-                <th scope="col">Category</th>
-                <th scope="col">Authors</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% books.forEach(book => { %>
-                <tr>
-                    <th scope="row"><%= book.id %></th>
-                    <td><%= book.title %></td>
-                    <td><%= book.stock_quantity %></td>
-                    <td><%= book.category %></td>
-                    <td><%= book.authors %></td>
-                    <td><a href="/books/<%= book.id %>"><button type="button" class="btn btn-info">Info</button></a>
-                        <a href="/delete-book/<%= book.id %>"><button type="button" class="btn btn-danger">Delete</button></a>
-                    </td>
-                </tr>
-            <% }) %>
-        </tbody>
-    </table>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>

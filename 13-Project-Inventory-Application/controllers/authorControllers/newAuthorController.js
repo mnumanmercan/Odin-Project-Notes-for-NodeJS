@@ -1,4 +1,4 @@
-import { addNewAuthor, getAuthors } from "../../db/queries.js";
+import { addNewAuthor } from "../../db/queries.js";
 
 export async function newAuthorGet(req, res) {
     res.render("newAuthor", { formTitle: "Add New Author" });
