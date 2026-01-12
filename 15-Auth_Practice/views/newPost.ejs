@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post</title>
+</head>
+<body>
+    <% if (locals.user) {%>
+    <h1>Post as: <%= user.username %></h1>
+
+    <form action="/new-post" method="POST">
+        <label for="title">Post Title</label>
+        <input type="text" name="title" id="title">
+        <hr>
+        <label for="content">Post Content</label>
+        <textarea name="content" id="content" placeholder="content"></textarea>
+
+        <button type="submit">Create Post</button>
+    </form>
+  <% } else { %>
+    <h1>You should sign-up for posting!</h1>
+    <a href="/sign-up">Sign Up</a>
+  <%}%>
+</body>
+</html>

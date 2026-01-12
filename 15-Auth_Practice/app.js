@@ -84,6 +84,58 @@ app.get("/log-out", (req, res, next) => {
     });
 });
 
+app.get("/new-post", (req, res) => res.render("newPost", { user: req.user }));
+
+app.post("/new-post", async (req, res, next) => {
+    try {
+
+        // 1. GİRİŞ KONTROLÜ
+        if (!req.user) {
+            return res.status(401).send("Giriş yapmalısınız");
+        }
+
+        const { title, content } = req.body;
+
+        // 3. VALİDASYON
+        if (!title || !content) {
+            return res.status(400).send("Başlık ve içerik gerekli");
+        }
+
+        if (title.trim().length === 0 || content.trim().length === 0) {
+            return res.status(400).send("Başlık ve içerik boş olamaz");
+        }
+
+        // 4. DATABASE'E EKLE
+        await pool.query(
+            `INSERT INTO posts (user_id, title, content) 
+             VALUES ($1, $2, $3) 
+             RETURNING id, title, content, user_id, created_at`,
+            [req.user.id, title.trim(), content.trim()]
+        );
+
+        // 5. ANA SAYFAYA YÖNLENDİR
+        res.redirect("/");
+    } catch (err) {
+        return next(err);
+    }
+});
+
+app.get("/posts", async (req, res) => {
+    const result = await pool.query(`
+                SELECT 
+                    p.id,
+                    p.title,
+                    p.content,
+                    p.created_at,
+                    u.username
+                FROM posts p
+                INNER JOIN users u ON p.user_id = u.id
+                ORDER BY p.created_at DESC
+            `);
+    posts = result.rows;
+    res.render("posts", { posts, user: req.user })
+});
+
 app.listen(3000, (error) => {
     if (error) {
         throw error;
