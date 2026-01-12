@@ -1,21 +1,16 @@
 const path = require("node:path");
-const { Pool } = require("pg");
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require('passport-local').Strategy;
 const dotenv = require("dotenv");
 const bcrypt = require("bcryptjs");
+const pool = require("./db/pool.js");
+
+const indexRouter = require("./routes/indexRoute.js");
+const signUpRouter = require("./routes/signUpRoute.js");
 
 dotenv.config();
-
-const pool = new Pool({
-    host: process.env.HOST, // or wherever the db is hosted
-    user: process.env.DB_USER,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT // The default port
-});
 
 const app = express();
 app.set("views", path.join(__dirname, "views"));
@@ -35,7 +30,7 @@ passport.use(
                 return done(null, false, { message: "Incorrect username" });
             }
 
-            const match = await bcrypt.compare(password, user.password);
+            const match = await bcrypt.compare(password, user.password_hash);
 
             if (!match) {
                 return done(null, false, { message: "Incorrect password" });
@@ -68,26 +63,9 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get("/", (req, res) => {
-    res.render("index", { user: req.user });
-});
-app.get("/sign-up", (req, res) => res.render("sign-up-form"));
-
-app.post("/sign-up", async (req, res, next) => {
-    try {
-        const { username, email, password } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
-        await pool.query("INSERT INTO users (username, email, password) VALUES ($1, $2, $3)", [
-            username,
-            email,
-            hashedPassword,
-        ]);
-
-        res.redirect("/");
-    } catch (err) {
-        return next(err);
-    }
-});
+//
+app.use('/', indexRouter);
+app.use("/sign-up", signUpRouter);
 
 app.post(
     "/log-in",
