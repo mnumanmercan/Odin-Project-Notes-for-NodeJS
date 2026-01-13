@@ -6,13 +6,23 @@
     <title>Posts</title>
 </head>
 <body>
-    <h1>Posts</h1>
+    <h1>@<%= locals.user.username %></h1>
 
     <% posts.forEach(post=> { %>
-        <div style="display: flex; gap: 20px; justify-content: space-between; align-items: center; border: 2px solid #333333;">
-            <h1>Poster: <%= post.id %></h1>
+        <div style="display: flex; gap: 20px; margin: 20px; justify-content: space-between; align-items: center; border: 2px solid #333333;">
             <h3><%= post.title %></h3>
             <p><%= post.content %></p>
+            <div>
+                <% if (locals.user && post.username) { %>
+                    <span class="author-logged-in" style="color: rgb(43, 59, 59); font-size: 20px;">
+                        @<%= post.username %>
+                    </span>
+                <% } else { %>
+                    <span class="author-anonymous">
+                        🕶️ @anonymous
+                    </span>
+                <% } %>
+            </div>
         </div>
     <% }) %>
 </body>

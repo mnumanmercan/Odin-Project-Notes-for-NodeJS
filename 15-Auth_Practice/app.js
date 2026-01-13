@@ -121,7 +121,8 @@ app.post("/new-post", async (req, res, next) => {
 });
 
 app.get("/posts", async (req, res) => {
-    const result = await pool.query(`
+    if (req.user) {
+        const result = await pool.query(`
                 SELECT 
                     p.id,
                     p.title,
@@ -132,8 +133,24 @@ app.get("/posts", async (req, res) => {
                 INNER JOIN users u ON p.user_id = u.id
                 ORDER BY p.created_at DESC
             `);
-    posts = result.rows;
-    res.render("posts", { posts, user: req.user })
+        posts = result.rows;
+    } else {
+        const result = await pool.query(`
+                SELECT 
+                    id,
+                    title,
+                    content,
+                    created_at
+                FROM posts
+                ORDER BY created_at DESC
+            `);
+        posts = result.rows;
+    }
+
+    res.render("posts", {
+        user: req.user,  // Passport'tan gelir
+        posts: posts
+    });
 });
 
 app.listen(3000, (error) => {
