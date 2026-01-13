@@ -9,6 +9,7 @@ const pool = require("./db/pool.js");
 
 const indexRouter = require("./routes/indexRoute.js");
 const signUpRouter = require("./routes/signUpRoute.js");
+const deleteRouter = require("./routes/deleteRoute.js");
 
 dotenv.config();
 
@@ -152,6 +153,8 @@ app.get("/posts", async (req, res) => {
         posts: posts
     });
 });
+
+app.use("/delete-post", deleteRouter);
 
 app.listen(3000, (error) => {
     if (error) {

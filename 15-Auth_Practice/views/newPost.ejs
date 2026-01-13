@@ -3,24 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post</title>
+    <title>Create New Post - Clubhouse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <% if (locals.user) {%>
-    <h1>Post as: <%= user.username %></h1>
+<body class="bg-gradient-to-br from-green-50 to-emerald-100 min-h-screen">
+    
+    <% if (locals.user) { %>
+        <!-- LOGGED IN - CREATE POST -->
+        <div class="min-h-screen py-12 px-4">
+            <div class="max-w-3xl mx-auto">
+                
+                <!-- Header -->
+                <div class="mb-8">
+                    <a href="/" class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-800 transition mb-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        Back to Home
+                    </a>
+                    <h1 class="text-4xl font-bold text-gray-800 mb-2">Create a New Post ✍️</h1>
+                    <p class="text-gray-600">
+                        Posting as: <span class="font-semibold text-green-600"><%= user.username %></span>
+                        <% if (user.role === 'admin') { %>
+                            <span class="ml-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">ADMIN</span>
+                        <% } %>
+                    </p>
+                </div>
 
-    <form action="/new-post" method="POST">
-        <label for="title">Post Title</label>
-        <input type="text" name="title" id="title">
-        <hr>
-        <label for="content">Post Content</label>
-        <textarea name="content" id="content" placeholder="content"></textarea>
+                <!-- Form Card -->
+                <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
+                    
+                    <!-- Form Header -->
+                    <div class="bg-gradient-to-r from-green-400 to-emerald-600 p-6">
+                        <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                            </svg>
+                            Share Your Story
+                        </h2>
+                        <p class="text-green-100 mt-1">Members will see your name, guests won't!</p>
+                    </div>
 
-        <button type="submit">Create Post</button>
-    </form>
-  <% } else { %>
-    <h1>You should sign-up for posting!</h1>
-    <a href="/sign-up">Sign Up</a>
-  <%}%>
+                    <!-- Form Body -->
+                    <form action="/new-post" method="POST" class="p-8 space-y-6">
+                        
+                        <!-- Title Input -->
+                        <div>
+                            <label for="title" class="block text-sm font-bold text-gray-700 mb-2">
+                                📌 Post Title
+                            </label>
+                            <input 
+                                type="text" 
+                                name="title" 
+                                id="title"
+                                placeholder="Give your post a catchy title..."
+                                maxlength="200"
+                                required
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition text-lg"
+                            />
+                            <div class="mt-2 flex justify-between items-center">
+                                <p class="text-xs text-gray-500">Make it interesting and engaging!</p>
+                                <span id="titleCount" class="text-xs text-gray-400">0 / 200</span>
+                            </div>
+                        </div>
+
+                        <!-- Divider -->
+                        <div class="border-t-2 border-dashed border-gray-200"></div>
+
+                        <!-- Content Textarea -->
+                        <div>
+                            <label for="content" class="block text-sm font-bold text-gray-700 mb-2">
+                                📝 Post Content
+                            </label>
+                            <textarea 
+                                name="content" 
+                                id="content" 
+                                placeholder="What's on your mind? Share your thoughts, stories, or ideas..."
+                                rows="12"
+                                maxlength="5000"
+                                required
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition resize-none"
+                            ></textarea>
+                            <div class="mt-2 flex justify-between items-center">
+                                <p class="text-xs text-gray-500">Express yourself freely (min. 10 characters)</p>
+                                <span id="contentCount" class="text-xs text-gray-400">0 / 5000</span>
+                            </div>
+                        </div>
+
+                        <!-- Info Box -->
+                        <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-5 w-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm text-blue-700">
+                                        <strong>Privacy Note:</strong> Clubhouse members will see your username, but guests will only see "Anonymous Author".
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex gap-4 pt-4">
+                            <button 
+                                type="submit"
+                                class="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-4 rounded-xl transition duration-200 transform hover:scale-[1.02] shadow-lg flex items-center justify-center gap-2"
+                            >
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                Publish Post
+                            </button>
+                            <a 
+                                href="/"
+                                class="px-8 py-4 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition duration-200 flex items-center justify-center gap-2"
+                            >
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                Cancel
+                            </a>
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <!-- Preview Hint -->
+                <div class="mt-6 text-center">
+                    <p class="text-sm text-gray-500">
+                        💡 Tip: Write thoughtfully - your posts will be visible to all clubhouse visitors!
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Character Counter Script -->
+        <script>
+            const titleInput = document.getElementById('title');
+            const contentInput = document.getElementById('content');
+            const titleCount = document.getElementById('titleCount');
+            const contentCount = document.getElementById('contentCount');
+
+            function updateCount(input, counter, max) {
+                const length = input.value.length;
+                counter.textContent = `${length} / ${max}`;
+                
+                // Color coding
+                if (length > max * 0.9) {
+                    counter.classList.add('text-red-500', 'font-bold');
+                    counter.classList.remove('text-gray-400');
+                } else if (length > max * 0.7) {
+                    counter.classList.add('text-yellow-600', 'font-semibold');
+                    counter.classList.remove('text-gray-400', 'text-red-500');
+                } else {
+                    counter.classList.remove('text-red-500', 'text-yellow-600', 'font-bold', 'font-semibold');
+                    counter.classList.add('text-gray-400');
+                }
+            }
+
+            titleInput.addEventListener('input', () => updateCount(titleInput, titleCount, 200));
+            contentInput.addEventListener('input', () => updateCount(contentInput, contentCount, 5000));
+
+            // Initial count
+            updateCount(titleInput, titleCount, 200);
+            updateCount(contentInput, contentCount, 5000);
+
+            // Auto-resize textarea
+            contentInput.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+        </script>
+
+    <% } else { %>
+        <!-- NOT LOGGED IN - REDIRECT TO SIGN UP -->
+        <div class="min-h-screen flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl shadow-2xl p-12 max-w-md w-full text-center">
+                
+                <!-- Lock Icon -->
+                <div class="mb-6">
+                    <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto">
+                        <svg class="w-10 h-10 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Message -->
+                <h1 class="text-3xl font-bold text-gray-800 mb-4">Access Restricted</h1>
+                <p class="text-gray-600 mb-8">
+                    You need to be a clubhouse member to create posts. Join us today and start sharing your stories!
+                </p>
+
+                <!-- Action Buttons -->
+                <div class="space-y-3">
+                    <a href="/sign-up" class="block w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-3 rounded-xl transition duration-200 transform hover:scale-[1.02] shadow-lg">
+                        Sign Up Now
+                    </a>
+                    <a href="/log-in" class="block w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 rounded-xl transition duration-200">
+                        Already have an account? Log In
+                    </a>
+                    <a href="/" class="block text-sm text-gray-500 hover:text-gray-700 mt-4">
+                        ← Back to Home
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    <% } %>
+
 </body>
 </html>
