@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Kullanıcı modeli
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+  
+  files     File[]
+}
+
+// Dosya modeli
+model File {
+  id         String   @id @default(cuid())
+  name       String
+  size       Int      // Byte cinsinden
+  path       String   // Dosyanın sunucudaki yolu
+  userId     String
+  uploadedAt DateTime @default(now())
+  
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
