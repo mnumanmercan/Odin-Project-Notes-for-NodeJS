@@ -1,16 +1,10 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 // Kullanıcı modeli
@@ -24,25 +18,8 @@ model User {
   
   // İlişkiler
   files     File[]
-  sessions  Session[]
   
   @@map("users")
-}
-
-// Session modeli (express-session için)
-model Session {
-  id        String   @id @default(uuid())
-  sid       String   @unique // Session ID
-  data      String   // Session verisi (JSON string)
-  expiresAt DateTime
-  
-  // İlişkiler
-  userId    String?
-  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  @@map("sessions")
-  @@index([sid])
-  @@index([expiresAt])
 }
 
 // Dosya modeli
