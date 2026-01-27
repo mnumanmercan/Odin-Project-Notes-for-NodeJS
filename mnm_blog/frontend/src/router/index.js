@@ -3,6 +3,7 @@ import PostsView from '../views/PostsView.vue';
 import PostDetailView from '../views/PostDetailView.vue';
 import LoginView from '../views/LoginView.vue';
 import CreatePostView from '../views/CreatePostView.vue';
+import UpdatePostView from '../views/UpdatePostView.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,6 +32,12 @@ const router = createRouter({
             name: 'create-post',
             component: CreatePostView,
             meta: { requiresAuth: true }
+        },
+        {
+            path: '/admin/edit-post/:id',
+            name: 'edit-post',
+            component: UpdatePostView,
+            meta: { requiresAuth: true}
         }
     ]
 });

@@ -56,6 +56,20 @@ export const createPostQuery = async (title, content, category_id, user_id = 1) 
   );
 };
 
+export const deletePostQuery = async (id) => {
+    return await pool.query(
+        "DELETE FROM posts WHERE id = $1 RETURNING id",
+        [id]
+    );
+};
+
+export const updatePostQuery = async (id, title, content, category_id) => {
+    return await pool.query(
+        "UPDATE posts SET title = $1, content = $2, category_id = $3, updated_at = NOW() WHERE id = $4 RETURNING id, title, content, category_id",
+        [title, content, category_id, id]
+    );
+};
+
 // User Queries
 export const createUser = async (name, email, password) => {
   return await pool.query(

@@ -1,20 +1,23 @@
 <template>
   <div class="post-card-wrapper">
-    <div class="post-card-link">
+    <!-- Admin için düzenleme/silme butonları - CARD DIŞINDA -->
+    <div v-if="isAdmin" class="admin-controls">
+      <button @click.stop="editPost" class="edit-btn" title="Düzenle">
+        ✏️
+      </button>
+<!--       
+      <button @click.stop="deletePost" class="delete-btn" title="Sil">
+        🗑️
+      </button> -->
+    </div>
+
+    <!-- Card tıklanabilir -->
+    <router-link :to="`/posts/${post.id}`" class="post-card-link">
       <div class="post-card">
-        <!-- Admin için düzenleme/silme butonları -->
-        <div v-if="isAdmin" class="admin-controls">
-          <button @click.prevent="editPost" class="edit-btn" title="Düzenle">
-            ✏️
-          </button>
-          <button @click.prevent="deletePost" class="delete-btn" title="Sil">
-            🗑️
-          </button>
-        </div>
-        <router-link :to="`/posts/${post.id}`" class="post-header">
+        <div class="post-header">
           <h2>{{ post.title }}</h2>
           <span class="category">{{ post.category.name }}</span>
-        </router-link>
+        </div>
 
         <p class="post-content">{{ truncatedContent }}</p>
 
@@ -28,7 +31,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 
@@ -69,10 +72,12 @@ const formatDate = (dateString) => {
 };
 
 const editPost = () => {
+  console.log('Edit clicked for post:', props.post.id); // Debug için
   router.push(`/admin/edit-post/${props.post.id}`);
 };
 
 const deletePost = () => {
+  console.log('Delete clicked for post:', props.post.id); // Debug için
   if (
     confirm(
       `"${props.post.title}" başlıklı postu silmek istediğinize emin misiniz?`,
@@ -89,13 +94,12 @@ const deletePost = () => {
 }
 
 .admin-controls {
-  position: relative;
-  margin-bottom: 0.5rem;
-  top: -10px;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
   z-index: 10;
   display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .edit-btn,
@@ -119,11 +123,15 @@ const deletePost = () => {
 .edit-btn:hover {
   transform: scale(1.1);
   box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+  background: #3498db;
+  color: white;
 }
 
 .delete-btn:hover {
   transform: scale(1.1);
   box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+  background: #e74c3c;
+  color: white;
 }
 
 .post-card-link {
@@ -156,8 +164,6 @@ const deletePost = () => {
   justify-content: space-between;
   align-items: start;
   margin-bottom: 1rem;
-  text-decoration: none;
-  color: inherit;
 }
 
 h2 {
