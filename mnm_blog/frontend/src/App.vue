@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <PostsView />
+    <RouterView />
   </div>
 </template>
 
 <script setup>
-import PostsView from './views/PostView.vue';
+import { RouterView } from 'vue-router';
 </script>
 
 <style>

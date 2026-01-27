@@ -24,6 +24,38 @@ export const getAllPosts = async () => {
         ORDER BY p.created_at DESC`);
 };
 
+export const getPostById = async (id) => {
+    return await pool.query(`
+        SELECT 
+            p.id,
+            p.title,
+            p.content,
+            p.view_count,
+            p.created_at,
+            p.updated_at,
+            json_build_object(
+                'id', u.id,
+                'name', u.name,
+                'email', u.email
+            ) as author,
+            json_build_object(
+                'id', c.id,
+                'name', c.category_name
+            ) as category
+        FROM posts p
+        JOIN users u ON p.user_id = u.id
+        JOIN categories c ON p.category_id = c.id
+        WHERE p.id = $1
+    `, [id]);
+}
+
+export const createPostQuery = async (title, content, category_id, user_id = 1) => {
+  return await pool.query(
+    "INSERT INTO posts (title, content, category_id, user_id) VALUES ($1, $2, $3, $4) RETURNING id, title, content, category_id, user_id",
+    [title, content, category_id, user_id]
+  );
+};
+
 // User Queries
 export const createUser = async (name, email, password) => {
   return await pool.query(

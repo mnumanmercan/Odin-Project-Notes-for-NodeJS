@@ -3,7 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 
 // Routes import
-import registerRouter from '../routes/registerRouter.js';
+import userRouter from '../routes/userRouter.js';
 import postRouter from '../routes/postRouter.js';
 
 dotenv.config();
@@ -20,10 +20,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // API endpoints
-//-- Register V1
-app.use('/api/v1', registerRouter);
+//-- User V1
+app.use('/api/v1', userRouter);
 
-//-- Posts V1 - curl http://localhost:3000/api/v1/posts
+//-- Posts V1
 app.use('/api/v1', postRouter);
 
 // Ana sayfa route
@@ -32,9 +32,9 @@ app.get('/', (req, res) => {
         message: 'Blog API\'ye hoş geldiniz',
         version: '1.0.0',
         endpoints: {
-            users: '/api/users',
-            posts: '/api/posts',
-            categories: '/api/categories'
+            users: '/api/v1/users',
+            posts: '/api/v1/posts',
+            categories: '/api/v1/categories'
         }
     });
 });
