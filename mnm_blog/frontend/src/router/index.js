@@ -10,7 +10,8 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            redirect: '/posts'
+            redirect: '/posts',
+            component: PostsView
         },
         {
             path: '/posts',
