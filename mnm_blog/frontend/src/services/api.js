@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/api/v1';
+const API_URL = 'https://blog.mnmercan.com/api/v1';
 
 const apiClient = axios.create({
     baseURL: API_URL,
@@ -28,11 +28,9 @@ apiClient.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response?.status === 403 || error.response?.status === 401) {
-            // Token geçersiz veya süresi dolmuş
             localStorage.removeItem('token');
             localStorage.removeItem('user');
 
-            // Login sayfasına yönlendir (eğer login sayfasında değilse)
             if (window.location.pathname !== '/login') {
                 window.location.href = '/login';
             }
