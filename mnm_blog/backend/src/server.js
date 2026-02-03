@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000;
 
 // Middlewares-----
 app.use(cors({
-    origin: 'http://localhost:5173', // Vite default portu
+    origin: ['https://exquisite-duckanoo-091d28.netlify.app', 'http://localhost:5173'], // Vite default portu
     credentials: true
 }));
 app.use(express.json());
