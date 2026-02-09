@@ -68,5 +68,8 @@ export default {
 
     deletePost(id) {
         return apiClient.delete(`/posts/${id}`);
+    },
+    incrementPostViewCount(id, postData) {
+        return apiClient.put(`/posts/${id}/view`, postData);
     }
 };

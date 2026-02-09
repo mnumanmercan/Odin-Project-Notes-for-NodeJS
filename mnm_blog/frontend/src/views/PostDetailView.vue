@@ -184,7 +184,20 @@ const deletePost = async () => {
   }
 };
 
+const incrementViewCountPost = () => {
+  const key = `viewed_post_${route.params.id}`;
+  const viewedPosts = JSON.parse(localStorage.getItem('viewedPosts') || '{}');
+
+  if (!viewedPosts[key]) {
+    api.incrementPostViewCount(route.params.id);
+
+    viewedPosts[key] = true;
+    localStorage.setItem('viewedPosts', JSON.stringify(viewedPosts));
+  }
+}
+
 onMounted(() => {
+  incrementViewCountPost();
   fetchPost();
 });
 </script>
